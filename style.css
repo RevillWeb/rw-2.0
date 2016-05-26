@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 html, body {
     width: 100%;
     height: 100%;
@@ -8,6 +9,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #000;
+    font-family: 'Lato', sans-serif;
 }
 .frame {
     display: flex;
@@ -20,15 +23,62 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #000;
+    transition: background-color 0.5s ease;
+    width: 25%;
+}
+.section:hover {
+    background-color: #ce4f20;
 }
 .section .top {
     flex-grow: 1;
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    color: #FFF;
+    transition: flex-grow 0.5s ease, margin-bottom 0.5s ease;
+    margin-bottom: 50px;
+}
+.section .top h1 {
+    margin: 0;
+    font-weight: 300;
+    border-bottom: solid 1px #333;
+    line-height: 70px;
+    padding: 0 10px;
+    color: #ce4f20;
+    transition: width 0.5s ease, color 0.5s ease, border-bottom-color 0.5s ease;
+}
+.section:hover .top {
+    flex-grow: 0;
+    margin-bottom: 0;
+}
+.section:hover .top h1 {
+    color: #FFF;
+    border-bottom-color: #9a3c1c;
+    width: 100%;
+    text-align: center;
 }
 .section .bottom {
+    flex-grow: 0;
+    height: 200px;
+    /*background-color: rgba(255, 255, 255, 0.54);*/
+    transition: flex-grow 0.5s ease;
+    flex-basis: 200px;
+    /*overflow: hidden;*/
+    overflow-y: scroll;
+}
+.section .bottom ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.section .bottom ul li {
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.54);
+}
+.section:hover .bottom {
     flex-grow: 1;
+
 }
 @media (max-width:  900px) {
     .frame {
