@@ -4,11 +4,7 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    /*background: url('../images/stardust.png');*/
-    /*font-family: "Droid Sans", arial, verdana, sans-serif;*/
     display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #000;
     font-family: 'Lato', sans-serif;
 }
@@ -27,23 +23,23 @@ html, body {
     width: 25%;
 }
 
+.section .image-holder {
+    width: 150px;
+    height: 150px;
+    /*background-color: #CCC;*/
+    margin: 0 auto 20px auto;
+    transition: height 0.5s ease;
+}
+
 .info  {
     /*padding-top: 100px;*/
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
 }
-.info .top {
-    flex-grow: 1.5;
-}
-.info img {
-    position: absolute;
-    top: -170px;
-    left: calc(50% - 75px)
-}
-.info .bottom {
-    flex-grow: 1;
-}
+/*.info .bottom {*/
+    /*flex-grow: 1;*/
+/*}*/
 .section .top {
     flex-grow: 1.5;
     display: flex;
@@ -57,7 +53,7 @@ html, body {
     position: relative;
     flex-direction: column;
 }
-.section .top .inner h1, .info h1 {
+.section h1 {
     margin: 0;
     font-weight: 300;
     font-size: 40px;
@@ -68,26 +64,49 @@ html, body {
 .section .top .inner h1 {
     transition: width 0.5s ease, color 0.5s ease;
 }
-.section .top .inner hr, .info hr {
+.section hr {
     margin: 30px auto;
     width: 40%;
     border: 0 none;
     border-top: 1px solid rgba(206, 79, 32, 0.25);
+    transition: margin 0.5s ease, opacity 0.5s ease;
 }
-.section .top .inner p, .info p {
+.section p.description {
     font-weight: 300;
     font-size: 18px;
     padding: 0 20px;
     text-align: center;
     color: #FFF;
+    height: 80px;
+    transition: height 0.5s ease, opacity 0.5s ease;
 }
-.section.content:hover {
+
+/** HOVER EVENTS **/
+.section.content.hover {
     background-color: #ce4f20;
 }
-.section.content:hover .top {
+.section.content.hover hr {
+    opacity: 0;
+    margin: 0;
+}
+.section.content.hover h1 {
+    color: #000000;
+}
+.section.content.hover p.description {
+    height: 0;
+    opacity: 0;
+    margin: 0;
+}
+.section.content.hover .top {
+    padding: 10px;
     flex-grow: 0;
     margin-bottom: 0;
 }
+.section.content.hover .image-holder {
+   height: 0;
+    margin: 0;
+}
+
 .section .bottom {
     flex-grow: 1;
 }

@@ -12,10 +12,12 @@
         <div class="section info">
             <div class="top">
                 <div class="inner">
-                    <img src="leon.jpg" width="150" height="150" />
+                    <div class="image-holder">
+                        <img src="leon.jpg" width="150" height="150" />
+                    </div>
                     <h1>Leon Revill</h1>
                     <hr>
-                    <p>Working hard to make awesome things for the web platform.</p>
+                    <p class="description">Working hard to make awesome things for the web platform.</p>
                 </div>
             </div>
             <div class="bottom">
@@ -29,11 +31,11 @@
         <div class="section content">
             <div class="top">
                 <div class="inner">
+                    <div class="image-holder"></div>
                     <h1>Blog</h1>
                     <hr>
-                    <p>I like to share what I've learnt.</p>
+                    <p class="description">I like to share what I've learnt.</p>
                 </div>
-
             </div>
             <div class="bottom">
                 <ul>
@@ -53,9 +55,10 @@
         <div class="section content">
             <div class="top">
                 <div class="inner">
+                    <div class="image-holder"></div>
                     <h1>Projects</h1>
                     <hr>
-                    <p>The things that I've been working on.</p>
+                    <p class="description">The things that I've been working on.</p>
                 </div>
             </div>
             <div class="bottom">
@@ -71,13 +74,26 @@
         <div class="section content">
             <div class="top">
                 <div class="inner">
+                    <div class="image-holder"></div>
                     <h1>Twitter</h1>
                     <hr>
-                    <p>Sometimes I share my thoughts.</p>
+                    <p class="description">Sometimes I share my thoughts.</p>
                 </div>
             </div>
             <div class="bottom">bottom</div>
         </div>
     </div>
+    <script>
+        var $elements = document.querySelectorAll(".bottom");
+        $elements.forEach(function($element){
+            $element.addEventListener("mouseover", function(){
+                this.parentNode.className += " hover";
+            });
+            $element.addEventListener("mouseout", function(){
+                this.parentNode.className = this.parentNode.className.replace(" hover", "");
+            });
+        });
+
+    </script>
 </body>
 </html>
