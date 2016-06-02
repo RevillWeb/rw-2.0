@@ -1,11 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+@import url(https://fonts.googleapis.com/css?family=Satisfy);
 html, body {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
     display: flex;
-    background-color: #000;
+    background-color: #0d152d;
     font-family: 'Lato', sans-serif;
 }
 .frame {
@@ -18,7 +19,7 @@ html, body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    background-color: #000;
+    background-color: #0d152d;
     transition: background-color 0.5s ease;
     width: 25%;
 }
@@ -29,6 +30,10 @@ html, body {
     /*background-color: #CCC;*/
     margin: 0 auto 20px auto;
     transition: height 0.5s ease;
+}
+
+.section .image-holder img {
+    border: solid 2px rgba(204, 172, 0, 0.50);
 }
 
 .info  {
@@ -55,11 +60,12 @@ html, body {
 }
 .section h1 {
     margin: 0;
-    font-weight: 300;
+    font-weight: 100;
     font-size: 40px;
     text-align: center;
-    color: #ce4f20;
+    color: #ffd700;
     width: 100%;
+    font-family: 'Satisfy', cursive;
 }
 .section .top .inner h1 {
     transition: width 0.5s ease, color 0.5s ease;
@@ -68,7 +74,7 @@ html, body {
     margin: 30px auto;
     width: 40%;
     border: 0 none;
-    border-top: 1px solid rgba(206, 79, 32, 0.25);
+    border-top: 1px solid rgba(255, 215, 0, 0.25);
     transition: margin 0.5s ease, opacity 0.5s ease;
 }
 .section p.description {
@@ -76,21 +82,21 @@ html, body {
     font-size: 18px;
     padding: 0 20px;
     text-align: center;
-    color: #FFF;
+    color: #998100;
     height: 80px;
     transition: height 0.5s ease, opacity 0.5s ease;
 }
 
 /** HOVER EVENTS **/
 .section.content.hover {
-    background-color: #ce4f20;
+    background-color: #ccac00;
 }
 .section.content.hover hr {
     opacity: 0;
     margin: 0;
 }
 .section.content.hover h1 {
-    color: #000000;
+    color: #0d152d;
 }
 .section.content.hover p.description {
     height: 0;
@@ -144,11 +150,11 @@ html, body {
     justify-content: center;
     font-size: 22px;
     text-decoration: none;
-    color: rgba(206, 79, 32, 0.50);
+    color: rgba(204, 172, 0, 0.51);
     transition: color 0.5s ease;
 }
 .info .social a:hover {
-    color: #ce4f20;
+    color: #ccac00;
 }
 @media (max-width:  900px) {
     .frame {
