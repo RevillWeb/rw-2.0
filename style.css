@@ -1,5 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 @import url(https://fonts.googleapis.com/css?family=Satisfy);
+
+/**
+    GOLD: http://www.color-hex.com/color/ffd700
+    ROYAL BLUE: http://www.color-hex.com/color/4169e1
+**/
+
 html, body {
     width: 100%;
     height: 100%;
