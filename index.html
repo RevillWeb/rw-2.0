@@ -13,25 +13,22 @@
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
-                        <img src="leon.jpg" width="150" height="150" />
+                        <div class="image greyscale"></div>
+                        <div class="image original"></div>
                     </div>
                     <h1>Leon Revill</h1>
                     <hr>
                     <p class="description">Working hard to make awesome things for the web platform.</p>
                 </div>
             </div>
-            <div class="bottom">
-                <div class="social">
-                    <a href="#"><span class="icon icon-twitter"></span></a>
-                    <a href="#"><span class="icon icon-github"></span></a>
-                    <a href="#"><span class="icon icon-linkedin"></span></a>
-                </div>
-            </div>
+            <div class="bottom"></div>
         </div>
-        <div class="section content">
+        <a href="https://blog.revillweb.com/" target="_blank" class="section content">
             <div class="top">
                 <div class="inner">
-                    <div class="image-holder"></div>
+                    <div class="image-holder">
+                        <span class="icon-rss2"></span>
+                    </div>
                     <h1>Blog</h1>
                     <hr>
                     <p class="description">I like to share what I've learnt.</p>
@@ -39,10 +36,10 @@
             </div>
             <div class="bottom">
                 <ul>
-                    <li>Blog Item 1</li>
-                    <li>Blog Item 2</li>
-                    <li>Blog Item 3</li>
-                    <li>Blog Item 4</li>
+                    <li>JavaScript Developers: Do we really need frameworks?</li>
+                    <li>ABE Part 4 - Consuming APIs and sharing data with AngularJS services</li>
+                    <li>ABE Part 3: Implementing AngularJS controllers using best practices</li>
+                    <li>Manipulating and overwriting transcluded content within AngularJS directives</li>
                     <li>Blog Item 5</li>
                     <li>Blog Item 6</li>
                     <li>Blog Item 7</li>
@@ -51,11 +48,14 @@
                     <li>Blog Item 10</li>
                 </ul>
             </div>
-        </div>
-        <div class="section content">
+            <div class="background"></div>
+        </a>
+        <a href="https://github.com/RevillWeb" target="_blank" class="section content">
             <div class="top">
                 <div class="inner">
-                    <div class="image-holder"></div>
+                    <div class="image-holder">
+                        <span class="icon-github"></span>
+                    </div>
                     <h1>Projects</h1>
                     <hr>
                     <p class="description">The things that I've been working on.</p>
@@ -70,30 +70,33 @@
                     <li>Project 5</li>
                 </ul>
             </div>
-        </div>
-        <div class="section content">
+            <div class="background"></div>
+        </a>
+        <a href="https://twitter.com/revillweb" target="_blank" class="section content">
             <div class="top">
                 <div class="inner">
-                    <div class="image-holder"></div>
+                    <div class="image-holder">
+                        <span class="icon-twitter"></span>
+                    </div>
                     <h1>Twitter</h1>
                     <hr>
                     <p class="description">Sometimes I share my thoughts.</p>
                 </div>
             </div>
             <div class="bottom">bottom</div>
-        </div>
+            <div class="background"></div>
+        </a>
     </div>
     <script>
         var $elements = document.querySelectorAll(".bottom");
-        $elements.forEach(function($element){
+        [].forEach.call($elements, function($element){
             $element.addEventListener("mouseover", function(){
-                this.parentNode.className += " hover";
+                this.parentNode.className += " slideup";
             });
             $element.addEventListener("mouseout", function(){
-                this.parentNode.className = this.parentNode.className.replace(" hover", "");
+                this.parentNode.className = this.parentNode.className.replace(" slideup", "");
             });
         });
-
     </script>
 </body>
 </html>

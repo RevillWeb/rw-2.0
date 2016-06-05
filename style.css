@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
-@import url(https://fonts.googleapis.com/css?family=Satisfy);
 
 /**
     GOLD: http://www.color-hex.com/color/ffd700
@@ -13,6 +12,9 @@ html, body {
     margin: 0;
     display: flex;
     background-color: #0d152d;
+    background-image: linear-gradient(45deg, #0f1848, #0d152d);
+    background: #0d152d;
+    background: linear-gradient(45deg, #0f1848, #0d152d);
     font-family: 'Lato', sans-serif;
 }
 .frame {
@@ -22,26 +24,57 @@ html, body {
     width: 100%;
 }
 .section, .info {
+    position: relative;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     background-color: #0d152d;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.7s ease;
     width: 25%;
 }
-
+.section {
+    border-left: solid 1px rgba(255, 255, 255, 0.05);
+    border-right: solid 1px #04050b;
+}
+a.section {
+    text-decoration: none;
+}
+a.section:visited, a.section:active {
+    color: inherit;
+}
 .section .image-holder {
     width: 150px;
     height: 150px;
-    /*background-color: #CCC;*/
+    position: relative;
     margin: 0 auto 20px auto;
-    transition: height 0.5s ease;
+    transition: height 0.7s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.section .image-holder img {
-    border: solid 2px rgba(204, 172, 0, 0.50);
+.section .image-holder span {
+    font-size: 32px;
+    color: #FFD700;
+    text-shadow: 1px 1px 0 #887000;
 }
-
+.section .image-holder .image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.section .image-holder .greyscale {
+    background-image: url('images/leon-greyscale.jpg');
+}
+.section .image-holder .original {
+    opacity: 0;
+    background-image: url('images/leon-original.jpg');
+}
+.section:hover .image-holder .original {
+    opacity: 1;
+    transition: opacity 0.7s ease;
+}
 .info  {
     /*padding-top: 100px;*/
     flex-direction: column;
@@ -52,12 +85,14 @@ html, body {
     /*flex-grow: 1;*/
 /*}*/
 .section .top {
+    position: relative;
+    z-index: 100;
     flex-grow: 1.5;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     color: #FFF;
-    transition: flex-grow 0.5s ease, margin-bottom 0.5s ease;
+    transition: flex-grow 0.7s ease, margin-bottom 0.7s ease;
     margin-bottom: 50px;
 }
 .section .top .inner {
@@ -66,66 +101,56 @@ html, body {
 }
 .section h1 {
     margin: 0;
-    font-weight: 100;
+    font-weight: 300;
     font-size: 40px;
     text-align: center;
-    color: #ffd700;
+    color: #FFF;
     width: 100%;
-    font-family: 'Satisfy', cursive;
 }
 .section .top .inner h1 {
-    transition: width 0.5s ease, color 0.5s ease;
+    transition: width 0.7s ease, color 0.7s ease;
 }
 .section hr {
     margin: 30px auto;
     width: 40%;
     border: 0 none;
-    border-top: 1px solid rgba(255, 215, 0, 0.25);
-    transition: margin 0.5s ease, opacity 0.5s ease;
+    border-top: 1px dotted rgba(255, 255, 255, 0.15);
+    transition: margin 0.7s ease, opacity 0.7s ease;
 }
 .section p.description {
     font-weight: 300;
     font-size: 18px;
-    padding: 0 20px;
+    width: 60%;
+    margin: auto;
     text-align: center;
-    color: #998100;
+    color: #E1E1E1;
     height: 80px;
-    transition: height 0.5s ease, opacity 0.5s ease;
+    transition: height 0.7s ease, opacity 0.7s ease;
 }
-
-/** HOVER EVENTS **/
-.section.content.hover {
-    background-color: #ccac00;
+.section.content {
+    cursor: pointer;
 }
-.section.content.hover hr {
+.section .background {
     opacity: 0;
-    margin: 0;
-}
-.section.content.hover h1 {
-    color: #0d152d;
-}
-.section.content.hover p.description {
-    height: 0;
-    opacity: 0;
-    margin: 0;
-}
-.section.content.hover .top {
-    padding: 10px;
-    flex-grow: 0;
-    margin-bottom: 0;
-}
-.section.content.hover .image-holder {
-   height: 0;
-    margin: 0;
-}
-
-.section .bottom {
-    flex-grow: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ffd700;
+    background-image: linear-gradient(45deg, #ae8800, #ffd700);
+    background: #ffd700;
+    background: linear-gradient(45deg, #ae8800, #ffd700);
+    z-index: 99;
+    transition: opacity 0.7s ease;
 }
 .section .bottom {
-    transition: flex-grow 0.5s ease;
+    transition: flex-grow 0.7s ease;
     overflow-y: scroll;
     height: 200px;
+    position: relative;
+    z-index: 100;
+    flex-grow: .5;
 }
 .section .bottom ul {
     margin: 0;
@@ -133,35 +158,55 @@ html, body {
     list-style: none;
 }
 .section .bottom ul li {
+    background-color: #F1F1F1;
     height: 100px;
-    background-color: rgba(255, 255, 255, 0.54);
+    padding: 20px 20px 0 20px;
+    border-bottom: solid 1px #999;
+    border-top: solid 1px #FFF;
+    color: #0d152d;
+    font-size: 18px;
 }
-.section:hover .bottom {
-    flex-grow: 1;
-
+.section .bottom ul li:hover {
+    background-color: #111111;
+    color: #FFF;
+    border-top: solid 1px #000;
 }
 .info .bottom {
     overflow: hidden;
     width: 60%;
 }
-.info .social {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-.info .social a {
+
+/** HOVER EVENTS **/
+.section.content:hover .bottom {
     flex-grow: 1;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    font-size: 22px;
-    text-decoration: none;
-    color: rgba(204, 172, 0, 0.51);
-    transition: color 0.5s ease;
 }
-.info .social a:hover {
-    color: #ccac00;
+.section.content:hover .background {
+    opacity: 1;
 }
+.section.content.slideup hr {
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.section.content.slideup h1 {
+    color: #0d152d;
+}
+.section.content.slideup p.description {
+    height: 0;
+    opacity: 0;
+}
+.section.content.slideup .top {
+    padding: 10px 0 15px 0;
+    flex-grow: 0;
+    margin-bottom: 0;
+}
+.section.content.slideup .image-holder {
+    height: 0;
+    opacity: 0;
+    transition: opacity 0.7s ease, height 0.7s ease;
+}
+
+
 @media (max-width:  900px) {
     .frame {
         flex-direction: column;
