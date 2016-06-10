@@ -6,6 +6,7 @@
     <title>RW 2.0</title>
     <link rel="stylesheet" href="icons.css">
     <link rel="stylesheet" href="style.css">
+    <script src="closest.js"></script>
 </head>
 <body>
     <div class="frame">
@@ -23,7 +24,7 @@
             </div>
             <div class="bottom"></div>
         </div>
-        <a href="https://blog.revillweb.com/" target="_blank" class="section content">
+        <a href="https://blog.revillweb.com/" target="_blank" class="section content" id="blog-link">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -51,7 +52,7 @@
             </div>
             <div class="background"></div>
         </a>
-        <a href="https://github.com/RevillWeb" target="_blank" class="section content">
+        <a href="https://github.com/RevillWeb" target="_blank" class="section content" id="projects-link">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -63,7 +64,7 @@
                 </div>
             </div>
             <div class="bottom">
-                <ul>
+                <ul id="project-list">
                     <li>Project 1</li>
                     <li>Project 2</li>
                     <li>Project 3</li>
@@ -73,7 +74,7 @@
             </div>
             <div class="background"></div>
         </a>
-        <a href="https://twitter.com/revillweb" target="_blank" class="section content">
+        <a href="https://twitter.com/revillweb" target="_blank" class="section content" id="twitter-link">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -92,27 +93,37 @@
         var $bottoms = document.querySelectorAll(".bottom");
         [].forEach.call($bottoms, function($element){
             $element.addEventListener("mouseover", function(){
-                this.parentNode.className += " contenthover";
+                this.parentNode.classList.add("contenthover");
             });
             $element.addEventListener("mouseout", function(){
-                console.log("MOUSE OUT");
-                this.parentNode.className = this.parentNode.className.replace(" contenthover", "");
+                this.parentNode.classList.remove("contenthover");
             });
         });
         var $mores = document.querySelectorAll(".more button");
         [].forEach.call($mores, function($element){
             $element.addEventListener("click", function(event){
                 event.preventDefault();
-                this.parentNode.parentNode.parentNode.className += " slideup";
+                var $section = this.closest("a.section");
+                if ($section !== null) {
+                    $section.classList.add("slideup");
+                }
             });
         });
-//        var $sections = document.querySelectorAll(".section");
-//        [].forEach.call($sections, function($element){
-//            $element.addEventListener("mouseout", function(){
-//
-//                this.className = this.className.replace(" slideup", "");
-//            });
-//        });
+        var $sections = document.querySelectorAll("a.section");
+        [].forEach.call($sections, function($element){
+            $element.addEventListener("mouseout", function(event){
+                if (event.toElement !== null) {
+                    var $a = event.toElement.closest(".section");
+                    if ($a !== null && $a.getAttribute("id") != this.getAttribute("id")) {
+                        var $bottom = event.target.closest(".bottom");
+                        if ($bottom !== null) {
+                            $bottom.scrollTop = 0;
+                        }
+                        this.classList.remove("slideup");
+                    }
+                }
+            })
+        });
     </script>
 </body>
 </html>
