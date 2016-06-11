@@ -185,13 +185,17 @@ html, body {
     text-decoration: none;
     display: block;
     height: 250px;
-    padding: 50px 30px 0 30px;
-    background-color: #F1F1F1;
+    padding: 30px 30px 0 30px;
+    background-color: rgba(241, 241, 241, 0.90);
     color: #0d152d;
     font-size: 22px;
     font-weight: 300;
     transition: background-color 0.7s ease, color 0.7s ease;
     position: relative;
+}
+.section .bottom ul li a .date {
+    font-size: 12px;
+    margin-bottom: 20px;
 }
 .section .bottom ul li:hover {
     border-top: solid 1px #000;

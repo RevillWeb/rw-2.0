@@ -4,6 +4,11 @@
  * GitHub: https://github.com/RevillWeb
  * Twitter: @RevillWeb
  */
+
+import {MediumPosts} from './components/medium-posts.js';
+
+document.registerElement("medium-posts", MediumPosts);
+
 const $bottoms = document.querySelectorAll(".bottom");
 $bottoms.forEach(($element) => {
     $element.addEventListener("mouseover", function() {
