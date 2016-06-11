@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>RW 2.0</title>
-    <link rel="stylesheet" href="icons.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="closest.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/closest.js"></script>
 </head>
 <body>
     <div class="frame">
@@ -24,7 +25,7 @@
             </div>
             <div class="bottom"></div>
         </div>
-        <a href="https://blog.revillweb.com/" target="_blank" class="section content" id="blog-link">
+        <div class="section content">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -38,21 +39,21 @@
             <div class="bottom">
                 <div class="more"><button>More...</button></div>
                 <ul>
-                    <li>JavaScript Developers: Do we really need frameworks?</li>
-                    <li>ABE Part 4 - Consuming APIs and sharing data with AngularJS services</li>
-                    <li>ABE Part 3: Implementing AngularJS controllers using best practices</li>
-                    <li>Manipulating and overwriting transcluded content within AngularJS directives</li>
-                    <li>Blog Item 5</li>
-                    <li>Blog Item 6</li>
-                    <li>Blog Item 7</li>
-                    <li>Blog Item 8</li>
-                    <li>Blog Item 9</li>
-                    <li>Blog Item 10</li>
+                    <li><a href="#">JavaScript Developers: Do we really need frameworks?</a></li>
+                    <li><a href="#">ABE Part 4 - Consuming APIs and sharing data with AngularJS services</a></li>
+                    <li><a href="#">ABE Part 3: Implementing AngularJS controllers using best practices</a></li>
+                    <li><a href="#">Manipulating and overwriting transcluded content within AngularJS directives</a></li>
+                    <li><a href="#">Blog Item 5</a></li>
+                    <li><a href="#">Blog Item 6</a></li>
+                    <li><a href="#">Blog Item 7</a></li>
+                    <li><a href="#">Blog Item 8</a></li>
+                    <li><a href="#">Blog Item 9</a></li>
+                    <li><a href="#">Blog Item 10</a></li>
                 </ul>
             </div>
             <div class="background"></div>
-        </a>
-        <a href="https://github.com/RevillWeb" target="_blank" class="section content" id="projects-link">
+        </div>
+        <div class="section content">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -64,17 +65,18 @@
                 </div>
             </div>
             <div class="bottom">
-                <ul id="project-list">
-                    <li>Project 1</li>
-                    <li>Project 2</li>
-                    <li>Project 3</li>
-                    <li>Project 4</li>
-                    <li>Project 5</li>
+                <div class="more"><button>More...</button></div>
+                <ul>
+                    <li><a href="#">Project 1</a></li>
+                    <li><a href="#">Project 2</a></li>
+                    <li><a href="#">Project 3</a></li>
+                    <li><a href="#">Project 4</a></li>
+                    <li><a href="#">Project 5</a></li>
                 </ul>
             </div>
             <div class="background"></div>
-        </a>
-        <a href="https://twitter.com/revillweb" target="_blank" class="section content" id="twitter-link">
+        </div>
+        <div class="section content">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -85,45 +87,19 @@
                     <p class="description">Sometimes I share my thoughts.</p>
                 </div>
             </div>
-            <div class="bottom">bottom</div>
+            <div class="bottom">
+                <div class="more"><button>More...</button></div>
+                <ul>
+                    <li><a href="#">Tweet 1</a></li>
+                    <li><a href="#">Tweet 2</a></li>
+                    <li><a href="#">Tweet 3</a></li>
+                    <li><a href="#">Tweet 4</a></li>
+                    <li><a href="#">Tweet 5</a></li>
+                </ul>
+            </div>
             <div class="background"></div>
-        </a>
+        </div>
     </div>
-    <script>
-        var $bottoms = document.querySelectorAll(".bottom");
-        [].forEach.call($bottoms, function($element){
-            $element.addEventListener("mouseover", function(){
-                this.parentNode.classList.add("contenthover");
-            });
-            $element.addEventListener("mouseout", function(){
-                this.parentNode.classList.remove("contenthover");
-            });
-        });
-        var $mores = document.querySelectorAll(".more button");
-        [].forEach.call($mores, function($element){
-            $element.addEventListener("click", function(event){
-                event.preventDefault();
-                var $section = this.closest("a.section");
-                if ($section !== null) {
-                    $section.classList.add("slideup");
-                }
-            });
-        });
-        var $sections = document.querySelectorAll("a.section");
-        [].forEach.call($sections, function($element){
-            $element.addEventListener("mouseout", function(event){
-                if (event.toElement !== null) {
-                    var $a = event.toElement.closest(".section");
-                    if ($a !== null && $a.getAttribute("id") != this.getAttribute("id")) {
-                        var $bottom = event.target.closest(".bottom");
-                        if ($bottom !== null) {
-                            $bottom.scrollTop = 0;
-                        }
-                        this.classList.remove("slideup");
-                    }
-                }
-            })
-        });
-    </script>
+    <script src="dist/bundle.js"></script>
 </body>
 </html>
