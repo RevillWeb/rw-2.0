@@ -6,8 +6,12 @@
  */
 
 import {MediumPosts} from './components/medium-posts.js';
+import {GithubRepos} from './components/github-repos.js';
+import {TwitterWidget} from './components/twitter-widget.js';
 
 document.registerElement("medium-posts", MediumPosts);
+document.registerElement("github-repos", GithubRepos);
+document.registerElement("twitter-widget", TwitterWidget);
 
 const $bottoms = document.querySelectorAll(".bottom");
 $bottoms.forEach(($element) => {
@@ -22,6 +26,7 @@ const $mores = document.querySelectorAll(".more button");
 $mores.forEach(($element) => {
     $element.addEventListener("click", function(event) {
         event.preventDefault();
+        event.stopImmediatePropagation();
         let $section = this.closest(".section.content");
         if ($section !== null) {
             $section.classList.add("slideup");
@@ -30,6 +35,11 @@ $mores.forEach(($element) => {
 });
 const $sections = document.querySelectorAll(".section.content");
 $sections.forEach(($element) => {
+    if ($element.dataset.url !== undefined) {
+        $element.querySelector(".top").addEventListener("click", function(){
+            window.open($element.dataset.url, '_blank');
+        });
+    }
     $element.addEventListener("mouseout", function(event) {
         if (event.toElement !== null) {
             const $section = event.toElement.closest(".section");

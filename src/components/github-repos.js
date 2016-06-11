@@ -4,7 +4,7 @@
  * GitHub: https://github.com/RevillWeb
  * Twitter: @RevillWeb
  */
-export class MediumPosts extends HTMLElement {
+export class GithubRepos extends HTMLElement {
     createdCallback() {
         this.createShadowRoot();
         this.shadowRoot.innerHTML = `
@@ -25,7 +25,7 @@ export class MediumPosts extends HTMLElement {
                     display: block;
                     height: 200px;
                     padding: 30px 30px 0 30px;
-                    background-color: rgba(241, 241, 241, 0.90);
+                    background-color: #F1F1F1;
                     color: #0d152d;
                     transition: background-color 0.7s ease, color 0.7s ease;
                     position: relative;
@@ -36,18 +36,16 @@ export class MediumPosts extends HTMLElement {
                     font-size: 22px;
                     font-weight: 300;
                 }
-                ul li a .date {
+                ul li a .info {
                     font-size: 12px;
                     margin-bottom: 20px;
-                    color: #999;
-                    font-weight: 300;
                 }
                 ul li:hover {
                     border-top: solid 1px #000;
                 }
                 ul li:hover a {
                     background-color: #111111;
-                    color: #FFF !important;
+                    color: #FFF;
                 }
                 .spinner {
                     position: absolute;
@@ -70,11 +68,11 @@ export class MediumPosts extends HTMLElement {
                     right: 0;
                     bottom: 0;
                     left: 0;
-                    z-index: 2;
                 }
                 .container.loaded .content {
                     transition: top 0.7s ease;
                     top: 0;
+                    z-index: 2;
                 }
                 .container.loaded .spinner {
                     transition: top 0.6s ease;
@@ -121,6 +119,22 @@ export class MediumPosts extends HTMLElement {
                         opacity: 0;
                     }
                 }
+                ul li .description {
+                    font-size: 12px;
+                    font-weight: 300;
+                    line-height: 20px;
+                }
+                ul li h3 {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                ul li a .date {
+                    font-size: 12px;
+                    margin-bottom: 20px;
+                    color: #999;
+                    font-weight: 300;
+                }
             </style>
             <div class="container">
                 <div class="spinner">
@@ -139,40 +153,25 @@ export class MediumPosts extends HTMLElement {
         xhr.onreadystatechange = () => {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 try {
-                    const parser = new DOMParser();
-                    const $xml = parser.parseFromString(xhr.response, "text/xml");
-                    const $items = $xml.querySelectorAll("item");
-                    this.items = [];
-                    $items.forEach(($item) => {
-                        var descString = $item.querySelector("description").innerHTML.replace("<![CDATA[", "").replace("]]>", "");
-                        var $desc = parser.parseFromString(descString, "text/html");
-                        this.items.push({
-                            "title": $item.querySelector("title").innerHTML.replace("<![CDATA[", "").replace("]]>", ""),
-                            "description": $desc.querySelector("p.medium-feed-snippet").innerHTML,
-                            "image": $desc.querySelector("p.medium-feed-image img").src,
-                            "link": $item.querySelector("link").innerHTML,
-                            "date": $item.querySelector("pubDate").innerHTML
-                        });
-                    });
+                    this.items = JSON.parse(xhr.response);
                     this.render();
                 } catch (e) {
                     console.error("Couldn't parse API response:", e);
                 }
             }
         };
-        xhr.open("GET", "http://cors.io/?u=https://blog.revillweb.com/feed");
+        xhr.open("GET", "https://api.github.com/users/RevillWeb/repos?sort=updated&type=owner");
         xhr.send();
     }
     render() {
         let $template = document.createElement("ul");
         this.items.forEach((item) => {
             let $li = document.createElement("li");
-            $li.style.backgroundImage = `url('${item.image}')`;
             let $a = document.createElement("a");
-            $a.setAttribute("href", item.link);
+            $a.setAttribute("href", item.html_url);
             $a.setAttribute("target", "_blank");
-            const dateString = new Intl.DateTimeFormat("en-GB").format(new Date(item.date));
-            $a.innerHTML = `<div class="date"><span>${dateString}</span></div><h3>${item.title}</h3>`;
+            const dateString = new Intl.DateTimeFormat().format(new Date(item.updated_at));
+            $a.innerHTML = `<div class="info"><span class="date">${dateString}</span></div><h3>${item.name}</h3><p class="description">${item.description}</p>`;
             $li.appendChild($a);
             $template.appendChild($li);
         });
@@ -180,6 +179,5 @@ export class MediumPosts extends HTMLElement {
         setTimeout(() => {
             this.shadowRoot.querySelector(".container").classList.add("loaded");
         }, 1000);
-
     }
 }

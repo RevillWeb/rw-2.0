@@ -139,8 +139,11 @@ html, body {
     overflow: hidden;
     position: relative;
     z-index: 100;
-    flex-basis: 250px;
+    flex-basis: 200px;
 }
+/*.section.twitter .bottom {*/
+    /*background-color: #FFF;*/
+/*}*/
 .section .more {
     position: absolute;
     top: 350px;
@@ -168,41 +171,7 @@ html, body {
 }
 .section.contenthover .more {
     opacity: 1;
-    top: 286px;
-}
-.section .bottom ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.section .bottom ul li {
-    border-bottom: solid 1px #999;
-    border-top: solid 1px #FFF;
-    box-sizing: content-box;
-    transition: border-color 0.7s ease;
-}
-.section .bottom ul li a {
-    text-decoration: none;
-    display: block;
-    height: 250px;
-    padding: 30px 30px 0 30px;
-    background-color: rgba(241, 241, 241, 0.90);
-    color: #0d152d;
-    font-size: 22px;
-    font-weight: 300;
-    transition: background-color 0.7s ease, color 0.7s ease;
-    position: relative;
-}
-.section .bottom ul li a .date {
-    font-size: 12px;
-    margin-bottom: 20px;
-}
-.section .bottom ul li:hover {
-    border-top: solid 1px #000;
-}
-.section .bottom ul li:hover a {
-    background-color: #111111;
-    color: #FFF;
+    top: 230px;
 }
 .info .bottom {
     overflow: hidden;
@@ -222,6 +191,7 @@ html, body {
 }
 .section.content.slideup .more {
     opacity: 0;
+    z-index: 1;
 }
 .section.content.slideup hr {
     transition: margin 0.7s ease, opacity 0.7s ease;
@@ -250,6 +220,9 @@ html, body {
 .section.content.slideup ul li {
     position: relative;
     z-index: 101;
+}
+.timeline-Widget {
+    border-radius: 0 !important;
 }
 
 @media (max-width:  900px) {
