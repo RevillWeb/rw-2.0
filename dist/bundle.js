@@ -125,11 +125,15 @@
 	    }
 
 	    _createClass(MediumPosts, [{
+	        key: "createdCallback",
+	        value: function createdCallback() {
+	            this.innerHTML = "\n            <style>\n                .spinner {\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    -webkit-transform: translate(-50%, -50%);\n                    transform: translate(-50%, -50%);\n                }\n                .dot {\n                      width: 10px;\n                      height: 10px;\n                      border: 2px solid white;\n                      border-radius: 50%;\n                      float: left;\n                      margin: 0 5px;\n                      -webkit-transform: scale(0);\n                              transform: scale(0);\n                      -webkit-animation: fx 1000ms ease infinite 0ms;\n                      animation: fx 1000ms ease infinite 0ms;\n                    }\n                    .dot:nth-child(2) {\n                      -webkit-animation: fx 1000ms ease infinite 300ms;\n                              animation: fx 1000ms ease infinite 300ms;\n                    }\n                    .dot:nth-child(3) {\n                      -webkit-animation: fx 1000ms ease infinite 600ms;\n                              animation: fx 1000ms ease infinite 600ms;\n                    }\n                    @-webkit-keyframes fx {\n                      50% {\n                        -webkit-transform: scale(1);\n                                transform: scale(1);\n                        opacity: 1;\n                      }\n                      100% {\n                        opacity: 0;\n                      }\n                    }\n                    @keyframes fx {\n                      50% {\n                        -webkit-transform: scale(1);\n                                transform: scale(1);\n                        opacity: 1;\n                      }\n                      100% {\n                        opacity: 0;\n                      }\n                    }\n            </style>\n            <div class=\"spinner\">\n                <div class=\"dot\"></div>\n                <div class=\"dot\"></div>\n                <div class=\"dot\"></div>\n            </div>\n        ";
+	        }
+	    }, {
 	        key: "attachedCallback",
 	        value: function attachedCallback() {
 	            var _this2 = this;
 
-	            console.log("CREATED!");
 	            var xhr = new XMLHttpRequest();
 	            xhr.onreadystatechange = function () {
 	                if (xhr.readyState == 4 && xhr.status == 200) {
@@ -137,7 +141,6 @@
 	                        (function () {
 	                            var parser = new DOMParser();
 	                            var $xml = parser.parseFromString(xhr.response, "text/xml");
-	                            console.log($xml);
 	                            var $items = $xml.querySelectorAll("item");
 	                            _this2.items = [];
 	                            $items.forEach(function ($item) {
@@ -165,6 +168,8 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this3 = this;
+
 	            var $template = document.createElement("ul");
 	            console.log("ITEMS:", this.items);
 	            this.items.forEach(function (item) {
@@ -177,7 +182,11 @@
 	                $li.appendChild($a);
 	                $template.appendChild($li);
 	            });
-	            this.appendChild($template);
+
+	            setTimeout(function () {
+	                _this3.innerHTML = "";
+	                _this3.appendChild($template);
+	            }, 1000);
 	        }
 	    }]);
 
