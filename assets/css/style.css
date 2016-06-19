@@ -10,7 +10,6 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    /*display: flex;*/
     background-color: #0d152d;
     background-image: linear-gradient(45deg, #0f1848, #0d152d);
     background: #0d152d;
@@ -25,9 +24,9 @@ html, body {
 }
 .section, .info {
     position: relative;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     background-color: #0d152d;
     width: 25%;
 }
@@ -43,6 +42,7 @@ html, body {
     height: 150px;
     position: relative;
     margin: 0 auto 20px auto;
+    -webkit-transition: height 0.7s ease;
     transition: height 0.7s ease;
     display: flex;
     align-items: center;
@@ -69,6 +69,7 @@ html, body {
 }
 .section:hover .image-holder .original {
     opacity: 1;
+    -webkit-transition: opacity 0.7s ease;
     transition: opacity 0.7s ease;
 }
 .info  {
@@ -84,6 +85,7 @@ html, body {
     align-items: flex-end;
     justify-content: center;
     color: #FFF;
+    -webkit-transition: flex-grow 0.7s ease, margin 0.7s ease, padding 0.7s ease;
     transition: flex-grow 0.7s ease, margin 0.7s ease, padding 0.7s ease;
     margin-bottom: 50px;
 }
@@ -100,6 +102,7 @@ html, body {
     width: 100%;
 }
 .section .top .inner h1 {
+    -webkit-transition: width 0.7s ease, color 0.7s ease;
     transition: width 0.7s ease, color 0.7s ease;
 }
 .section hr {
@@ -132,22 +135,22 @@ html, body {
     background: #ffd700;
     background: linear-gradient(45deg, #ae8800, #ffd700);
     z-index: 99;
+    -webkit-transition: opacity 0.7s ease;
     transition: opacity 0.7s ease;
 }
 .section .bottom {
+    -webkit-transition: flex-basis 0.7s ease, flex-grow 0.7s ease;
     transition: flex-basis 0.7s ease, flex-grow 0.7s ease;
     overflow: hidden;
     position: relative;
     z-index: 100;
     flex-basis: 200px;
 }
-/*.section.twitter .bottom {*/
-    /*background-color: #FFF;*/
-/*}*/
 .section .more {
     position: absolute;
     top: 350px;
     opacity: 0;
+    -webkit-transition: top 0.7s ease;
     transition: top 0.7s ease;
     text-align: center;
     display: flex;
@@ -194,6 +197,7 @@ html, body {
     z-index: 1;
 }
 .section.content.slideup hr {
+    -webkit-transition: margin 0.7s ease, opacity 0.7s ease;
     transition: margin 0.7s ease, opacity 0.7s ease;
     opacity: 0;
     margin-top: 0;
@@ -203,6 +207,7 @@ html, body {
     color: #0d152d;
 }
 .section.content.slideup p.description {
+    -webkit-transition: height 0.7s ease, opacity 0.7s ease;
     transition: height 0.7s ease, opacity 0.7s ease;
     height: 0;
     opacity: 0;
@@ -215,6 +220,7 @@ html, body {
 .section.content.slideup .image-holder {
     height: 0;
     opacity: 0;
+    -webkit-transition: opacity 0.7s ease, height 0.7s ease;
     transition: opacity 0.7s ease, height 0.7s ease;
 }
 .section.content.slideup ul li {
@@ -227,8 +233,6 @@ html, body {
 
 @media (max-width:  900px) {
     .frame {
-        /*flex-direction: column;*/
-        /*justify-content: flex-start;*/
         display: block;
     }
     .section {

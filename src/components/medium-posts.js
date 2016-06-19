@@ -64,7 +64,7 @@ export class MediumPosts extends HTMLElement {
                     -webkit-transform: translate(-50%, -50%);
                     transform: translate(-50%, -50%);
                 }
-                .content {
+                .ccontent {
                     position: absolute;
                     top: 100%;
                     right: 0;
@@ -72,11 +72,11 @@ export class MediumPosts extends HTMLElement {
                     left: 0;
                     z-index: 2;
                 }
-                .container.loaded .content {
+                .ccontainer.loaded .ccontent {
                     transition: top 0.7s ease;
                     top: 0;
                 }
-                .container.loaded .spinner {
+                .ccontainer.loaded .spinner {
                     transition: top 0.6s ease;
                     opacity: 0;
                     z-index: 1;
@@ -122,7 +122,7 @@ export class MediumPosts extends HTMLElement {
                     }
                 }
             </style>
-            <div class="container">
+            <div class="ccontainer">
                 <div class="spinner">
                     <div class="inner">
                         <div class="dot"></div>
@@ -130,7 +130,7 @@ export class MediumPosts extends HTMLElement {
                         <div class="dot"></div>
                     </div>
                 </div>
-                <div class="content"></div>
+                <div class="ccontent"></div>
             </div>
         `;
     }
@@ -143,7 +143,7 @@ export class MediumPosts extends HTMLElement {
                     const $xml = parser.parseFromString(xhr.response, "text/xml");
                     const $items = $xml.querySelectorAll("item");
                     this.items = [];
-                    $items.forEach(($item) => {
+                    [].forEach.call($items, ($item) => {
                         var descString = $item.querySelector("description").innerHTML.replace("<![CDATA[", "").replace("]]>", "");
                         var $desc = parser.parseFromString(descString, "text/html");
                         this.items.push({
@@ -176,10 +176,9 @@ export class MediumPosts extends HTMLElement {
             $li.appendChild($a);
             $template.appendChild($li);
         });
-        this.shadowRoot.querySelector(".content").appendChild($template);
+        this.shadowRoot.querySelector(".ccontent").appendChild($template);
         setTimeout(() => {
-            this.shadowRoot.querySelector(".container").classList.add("loaded");
+            this.shadowRoot.querySelector(".ccontainer").classList.add("loaded");
         }, 1000);
-
     }
 }

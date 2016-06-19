@@ -62,14 +62,14 @@ export class GithubRepos extends HTMLElement {
                     -webkit-transform: translate(-50%, -50%);
                     transform: translate(-50%, -50%);
                 }
-                .content {
+                .ccontent {
                     position: absolute;
                     top: 100%;
                     right: 0;
                     bottom: 0;
                     left: 0;
                 }
-                .container.loaded .content {
+                .ccontainer.loaded .ccontent {
                     transition: top 0.7s ease;
                     top: 0;
                     z-index: 2;
@@ -136,7 +136,7 @@ export class GithubRepos extends HTMLElement {
                     font-weight: 300;
                 }
             </style>
-            <div class="container">
+            <div class="ccontainer">
                 <div class="spinner">
                     <div class="inner">
                         <div class="dot"></div>
@@ -144,7 +144,7 @@ export class GithubRepos extends HTMLElement {
                         <div class="dot"></div>
                     </div>
                 </div>
-                <div class="content"></div>
+                <div class="ccontent"></div>
             </div>
         `;
     }
@@ -175,9 +175,9 @@ export class GithubRepos extends HTMLElement {
             $li.appendChild($a);
             $template.appendChild($li);
         });
-        this.shadowRoot.querySelector(".content").appendChild($template);
+        this.shadowRoot.querySelector(".ccontent").appendChild($template);
         setTimeout(() => {
-            this.shadowRoot.querySelector(".container").classList.add("loaded");
+            this.shadowRoot.querySelector(".ccontainer").classList.add("loaded");
         }, 1000);
     }
 }

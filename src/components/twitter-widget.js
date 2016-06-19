@@ -24,20 +24,20 @@ export class TwitterWidget extends HTMLElement {
                     -webkit-transform: translate(-50%, -50%);
                     transform: translate(-50%, -50%);
                 }
-                .content {
+                .ccontent {
                     position: absolute;
                     top: 100%;
                     right: 0;
                     bottom: 0;
                     left: 0;
                 }
-                .container.loaded .content {
+                .ccontainer.loaded .ccontent {
                     transition: top 0.7s ease;
                     top: 0;
                     z-index: 2;
                     background-color: #FFF;
                 }
-                .container.loaded .spinner {
+                .ccontainer.loaded .spinner {
                     transition: top 0.6s ease;
                     opacity: 0;
                     z-index: 1;
@@ -83,7 +83,7 @@ export class TwitterWidget extends HTMLElement {
                     }
                 }
             </style>
-            <div class="container">
+            <div class="ccontainer">
                 <div class="spinner">
                     <div class="inner">
                         <div class="dot"></div>
@@ -91,13 +91,13 @@ export class TwitterWidget extends HTMLElement {
                         <div class="dot"></div>
                     </div>
                 </div>
-                <div class="content"><content></content></div>
+                <div class="ccontent"><content></content></div>
             </div>
         `;
     }
     attachedCallback() {
         setTimeout(() => {
-            this.shadowRoot.querySelector(".container").classList.add("loaded");
+            this.shadowRoot.querySelector(".ccontainer").classList.add("loaded");
         }, 1000);
     }
 }

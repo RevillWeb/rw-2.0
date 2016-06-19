@@ -14,7 +14,7 @@ document.registerElement("github-repos", GithubRepos);
 document.registerElement("twitter-widget", TwitterWidget);
 
 const $bottoms = document.querySelectorAll(".bottom");
-$bottoms.forEach(($element) => {
+[].forEach.call($bottoms, ($element) => {
     $element.addEventListener("mouseover", function() {
         this.parentNode.classList.add("contenthover");
     });
@@ -23,7 +23,7 @@ $bottoms.forEach(($element) => {
     });
 });
 const $mores = document.querySelectorAll(".more button");
-$mores.forEach(($element) => {
+[].forEach.call($mores, ($element) => {
     $element.addEventListener("click", function(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -34,7 +34,7 @@ $mores.forEach(($element) => {
     });
 });
 const $sections = document.querySelectorAll(".section.content");
-$sections.forEach(($element) => {
+[].forEach.call($sections, ($element) => {
     if ($element.dataset.url !== undefined) {
         $element.querySelector(".top").addEventListener("click", function(){
             window.open($element.dataset.url, '_blank');
