@@ -13,43 +13,74 @@ document.registerElement("medium-posts", MediumPosts);
 document.registerElement("github-repos", GithubRepos);
 document.registerElement("twitter-widget", TwitterWidget);
 
-const $bottoms = document.querySelectorAll(".bottom");
-[].forEach.call($bottoms, ($element) => {
-    $element.addEventListener("mouseover", function() {
-        this.parentNode.classList.add("contenthover");
-    });
-    $element.addEventListener("mouseout", function() {
-        this.parentNode.classList.remove("contenthover");
-    });
-});
-const $mores = document.querySelectorAll(".more button");
-[].forEach.call($mores, ($element) => {
-    $element.addEventListener("click", function(event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        let $section = this.closest(".section.content");
-        if ($section !== null) {
-            $section.classList.add("slideup");
+function closest(el, selector) {
+    var matchesFn;
+
+    // find vendor prefix
+    ['matches','webkitMatchesSelector','mozMatchesSelector','msMatchesSelector','oMatchesSelector'].some(function(fn) {
+        if (typeof document.body[fn] == 'function') {
+            matchesFn = fn;
+            return true;
         }
+        return false;
     });
-});
-const $sections = document.querySelectorAll(".section.content");
-[].forEach.call($sections, ($element) => {
-    if ($element.dataset.url !== undefined) {
-        $element.querySelector(".top").addEventListener("click", function(){
-            window.open($element.dataset.url, '_blank');
-        });
+
+    var parent;
+
+    // traverse parents
+    while (el) {
+        parent = el.parentElement;
+        if (parent && parent[matchesFn](selector)) {
+            return parent;
+        }
+        el = parent;
     }
-    $element.addEventListener("mouseout", function(event) {
-        if (event.toElement !== null) {
-            const $section = event.toElement.closest(".section");
-            if ($section !== null && $section != this) {
-                let $bottom = event.target.closest(".bottom");
-                if ($bottom !== null) {
-                    $bottom.scrollTop = 0;
-                }
-                this.classList.remove("slideup");
-            }
-        }
+
+    return null;
+}
+
+if (document.documentElement.className.indexOf("legacy") === -1) {
+
+    const $bottoms = document.querySelectorAll(".bottom");
+    [].forEach.call($bottoms, ($element) => {
+        $element.addEventListener("mouseover", function () {
+            this.parentNode.classList.add("contenthover");
+        });
+        $element.addEventListener("mouseout", function () {
+            this.parentNode.classList.remove("contenthover");
+        });
     });
-});
+    const $mores = document.querySelectorAll(".more button");
+    [].forEach.call($mores, ($element) => {
+        $element.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            let $section = closest(event.target, ".section.content");
+            if ($section !== null) {
+                $section.classList.add("slideup");
+            }
+        });
+    });
+    const $sections = document.querySelectorAll(".section.content");
+    [].forEach.call($sections, ($element) => {
+        const url = $element.getAttribute("data-url");
+        if (url !== null) {
+            $element.querySelector(".top").addEventListener("click", function () {
+                window.open(url, '_blank');
+            });
+        }
+        $element.addEventListener("mouseout", function (event) {
+            if (event.toElement !== null) {
+                const $section = closest(event.toElement, ".section.content");
+                if ($section !== null && $section != this) {
+                    let $bottom = closest(event.target, ".bottom");
+                    if ($bottom !== null) {
+                        $bottom.scrollTop = 0;
+                    }
+                    this.classList.remove("slideup");
+                }
+            }
+        });
+    });
+
+}

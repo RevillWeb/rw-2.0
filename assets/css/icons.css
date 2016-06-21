@@ -24,21 +24,28 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-feed2:before {
-    content: "\e905";
+.icon-magazine:before {
+    content: "\e90c";
 }
-.icon-clock:before {
-    content: "\e904";
+.icon-at-sign:before {
+    content: "\ea2f";
 }
-.icon-feed:before {
+.icon-earth2:before {
+    content: "\ec97";
+}
+.icon-rss2:before {
+    content: "\eefb";
+}
+.icon-linkedin2:before {
+    content: "\ef28";
+}
+.icon-linkedin:before {
+    content: "\e902";
+}
+.icon-github:before {
     content: "\e900";
 }
 .icon-twitter:before {
     content: "\e901";
 }
-.icon-github:before {
-    content: "\e902";
-}
-.icon-star-full:before {
-    content: "\e903";
-}
+

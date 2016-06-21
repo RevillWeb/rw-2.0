@@ -62,46 +62,76 @@
 	document.registerElement("github-repos", _githubRepos.GithubRepos);
 	document.registerElement("twitter-widget", _twitterWidget.TwitterWidget);
 
-	var $bottoms = document.querySelectorAll(".bottom");
-	[].forEach.call($bottoms, function ($element) {
-	    $element.addEventListener("mouseover", function () {
-	        this.parentNode.classList.add("contenthover");
-	    });
-	    $element.addEventListener("mouseout", function () {
-	        this.parentNode.classList.remove("contenthover");
-	    });
-	});
-	var $mores = document.querySelectorAll(".more button");
-	[].forEach.call($mores, function ($element) {
-	    $element.addEventListener("click", function (event) {
-	        event.preventDefault();
-	        event.stopImmediatePropagation();
-	        var $section = this.closest(".section.content");
-	        if ($section !== null) {
-	            $section.classList.add("slideup");
+	function closest(el, selector) {
+	    var matchesFn;
+
+	    // find vendor prefix
+	    ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].some(function (fn) {
+	        if (typeof document.body[fn] == 'function') {
+	            matchesFn = fn;
+	            return true;
 	        }
+	        return false;
 	    });
-	});
-	var $sections = document.querySelectorAll(".section.content");
-	[].forEach.call($sections, function ($element) {
-	    if ($element.dataset.url !== undefined) {
-	        $element.querySelector(".top").addEventListener("click", function () {
-	            window.open($element.dataset.url, '_blank');
-	        });
+
+	    var parent;
+
+	    // traverse parents
+	    while (el) {
+	        parent = el.parentElement;
+	        if (parent && parent[matchesFn](selector)) {
+	            return parent;
+	        }
+	        el = parent;
 	    }
-	    $element.addEventListener("mouseout", function (event) {
-	        if (event.toElement !== null) {
-	            var $section = event.toElement.closest(".section");
-	            if ($section !== null && $section != this) {
-	                var $bottom = event.target.closest(".bottom");
-	                if ($bottom !== null) {
-	                    $bottom.scrollTop = 0;
-	                }
-	                this.classList.remove("slideup");
-	            }
-	        }
+
+	    return null;
+	}
+
+	if (document.documentElement.className.indexOf("legacy") === -1) {
+
+	    var $bottoms = document.querySelectorAll(".bottom");
+	    [].forEach.call($bottoms, function ($element) {
+	        $element.addEventListener("mouseover", function () {
+	            this.parentNode.classList.add("contenthover");
+	        });
+	        $element.addEventListener("mouseout", function () {
+	            this.parentNode.classList.remove("contenthover");
+	        });
 	    });
-	});
+	    var $mores = document.querySelectorAll(".more button");
+	    [].forEach.call($mores, function ($element) {
+	        $element.addEventListener("click", function (event) {
+	            event.preventDefault();
+	            event.stopImmediatePropagation();
+	            var $section = closest(event.target, ".section.content");
+	            if ($section !== null) {
+	                $section.classList.add("slideup");
+	            }
+	        });
+	    });
+	    var $sections = document.querySelectorAll(".section.content");
+	    [].forEach.call($sections, function ($element) {
+	        var url = $element.getAttribute("data-url");
+	        if (url !== null) {
+	            $element.querySelector(".top").addEventListener("click", function () {
+	                window.open(url, '_blank');
+	            });
+	        }
+	        $element.addEventListener("mouseout", function (event) {
+	            if (event.toElement !== null) {
+	                var $section = closest(event.toElement, ".section.content");
+	                if ($section !== null && $section != this) {
+	                    var $bottom = closest(event.target, ".bottom");
+	                    if ($bottom !== null) {
+	                        $bottom.scrollTop = 0;
+	                    }
+	                    this.classList.remove("slideup");
+	                }
+	            }
+	        });
+	    });
+	}
 
 /***/ },
 /* 1 */
@@ -127,6 +157,8 @@
 	 * GitHub: https://github.com/RevillWeb
 	 * Twitter: @RevillWeb
 	 */
+	var LS_TS_KEY = "rw_m_ts";
+	var LS_DATA_KEY = "rw_m_data";
 
 	var MediumPosts = exports.MediumPosts = function (_HTMLElement) {
 	    _inherits(MediumPosts, _HTMLElement);
@@ -138,45 +170,58 @@
 	    }
 
 	    _createClass(MediumPosts, [{
-	        key: "createdCallback",
-	        value: function createdCallback() {
-	            this.createShadowRoot();
-	            this.shadowRoot.innerHTML = "\n            <style>\n                ul {\n                    margin: 0;\n                    padding: 0;\n                    list-style: none;\n                }\n                ul li {\n                    border-bottom: solid 1px #999;\n                    border-top: solid 1px #FFF;\n                    box-sizing: content-box;\n                    transition: border-color 0.7s ease;\n                }\n                ul li a {\n                    text-decoration: none;\n                    display: block;\n                    height: 200px;\n                    padding: 30px 30px 0 30px;\n                    background-color: rgba(241, 241, 241, 0.90);\n                    color: #0d152d;\n                    transition: background-color 0.7s ease, color 0.7s ease;\n                    position: relative;\n                }\n                ul li a h3 {\n                    margin: 0;\n                    padding: 0;\n                    font-size: 22px;\n                    font-weight: 300;\n                }\n                ul li a .date {\n                    font-size: 12px;\n                    margin-bottom: 20px;\n                    color: #999;\n                    font-weight: 300;\n                }\n                ul li:hover {\n                    border-top: solid 1px #000;\n                }\n                ul li:hover a {\n                    background-color: #111111;\n                    color: #FFF !important;\n                }\n                .spinner {\n                    position: absolute;\n                    top: 0;\n                    right: 0;\n                    bottom: 0;\n                    left: 0;\n                    z-index: 200;\n                }\n                .spinner .inner {\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    -webkit-transform: translate(-50%, -50%);\n                    transform: translate(-50%, -50%);\n                }\n                .ccontent {\n                    position: absolute;\n                    top: 100%;\n                    right: 0;\n                    bottom: 0;\n                    left: 0;\n                    z-index: 2;\n                }\n                .ccontainer.loaded .ccontent {\n                    transition: top 0.7s ease;\n                    top: 0;\n                }\n                .ccontainer.loaded .spinner {\n                    transition: top 0.6s ease;\n                    opacity: 0;\n                    z-index: 1;\n                }\n                .dot {\n                    width: 10px;\n                    height: 10px;\n                    border: 2px solid white;\n                    border-radius: 50%;\n                    float: left;\n                    margin: 0 5px;\n                    -webkit-transform: scale(0);\n                    transform: scale(0);\n                    -webkit-animation: fx 1000ms ease infinite 0ms;\n                    animation: fx 1000ms ease infinite 0ms;\n                }\n                .dot:nth-child(2) {\n                    -webkit-animation: fx 1000ms ease infinite 300ms;\n                    animation: fx 1000ms ease infinite 300ms;\n                }\n                .dot:nth-child(3) {\n                    -webkit-animation: fx 1000ms ease infinite 600ms;\n                    animation: fx 1000ms ease infinite 600ms;\n                }\n                @-webkit-keyframes fx {\n                    50% {\n                        -webkit-transform: scale(1);\n                        transform: scale(1);\n                        opacity: 1;\n                    }\n                    100% {\n                        opacity: 0;\n                    }\n                }\n                @keyframes fx {\n                    50% {\n                        -webkit-transform: scale(1);\n                        transform: scale(1);\n                        opacity: 1;\n                    }\n                    100% {\n                        opacity: 0;\n                    }\n                }\n            </style>\n            <div class=\"ccontainer\">\n                <div class=\"spinner\">\n                    <div class=\"inner\">\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                    </div>\n                </div>\n                <div class=\"ccontent\"></div>\n            </div>\n        ";
-	        }
-	    }, {
 	        key: "attachedCallback",
 	        value: function attachedCallback() {
 	            var _this2 = this;
 
-	            var xhr = new XMLHttpRequest();
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState == 4 && xhr.status == 200) {
-	                    try {
-	                        (function () {
-	                            var parser = new DOMParser();
-	                            var $xml = parser.parseFromString(xhr.response, "text/xml");
-	                            var $items = $xml.querySelectorAll("item");
-	                            _this2.items = [];
-	                            [].forEach.call($items, function ($item) {
-	                                var descString = $item.querySelector("description").innerHTML.replace("<![CDATA[", "").replace("]]>", "");
-	                                var $desc = parser.parseFromString(descString, "text/html");
-	                                _this2.items.push({
-	                                    "title": $item.querySelector("title").innerHTML.replace("<![CDATA[", "").replace("]]>", ""),
-	                                    "description": $desc.querySelector("p.medium-feed-snippet").innerHTML,
-	                                    "image": $desc.querySelector("p.medium-feed-image img").src,
-	                                    "link": $item.querySelector("link").innerHTML,
-	                                    "date": $item.querySelector("pubDate").innerHTML
+	            this.innerHTML = "\n            <div class=\"ccontainer\">\n                <div class=\"spinner\">\n                    <div class=\"inner\">\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                    </div>\n                </div>\n                <div class=\"ccontent\"></div>\n            </div>\n        ";
+
+	            //Grab any items from local storage
+	            var items = localStorage.getItem(LS_DATA_KEY);
+	            //Try and parse a timestamp from local storage
+	            var ts = null;
+	            try {
+	                ts = new Date(localStorage.getItem(LS_TS_KEY));
+	            } catch (e) {}
+	            //Couldn't parse ts
+
+	            //If we have some cached data and its less than an hour old, use it
+	            if (ts !== null && new Date().getTime() - ts.getTime() <= 60000 && items !== null) {
+	                this.items = JSON.parse(items);
+	                this.render();
+	            } else {
+	                //Otherwise go and grab some new data
+	                var xhr = new XMLHttpRequest();
+	                xhr.onreadystatechange = function () {
+	                    if (xhr.readyState == 4 && xhr.status == 200) {
+	                        try {
+	                            (function () {
+	                                var parser = new DOMParser();
+	                                var $xml = parser.parseFromString(xhr.response, "text/xml");
+	                                var $items = $xml.querySelectorAll("item");
+	                                _this2.items = [];
+	                                [].forEach.call($items, function ($item) {
+	                                    var $desc = parser.parseFromString($item.querySelector("description").textContent, "text/html");
+	                                    _this2.items.push({
+	                                        "title": $item.querySelector("title").textContent,
+	                                        "description": $item.querySelector("description").textContent,
+	                                        "image": $desc.querySelector("p.medium-feed-image img").src,
+	                                        "link": $item.querySelector("link").textContent,
+	                                        "date": $item.querySelector("pubDate").textContent
+	                                    });
 	                                });
-	                            });
-	                            _this2.render();
-	                        })();
-	                    } catch (e) {
-	                        console.error("Couldn't parse API response:", e);
+	                                localStorage.setItem(LS_DATA_KEY, JSON.stringify(_this2.items));
+	                                localStorage.setItem(LS_TS_KEY, new Date());
+	                                _this2.render();
+	                            })();
+	                        } catch (e) {
+	                            console.error("Couldn't parse API response:", e);
+	                        }
 	                    }
-	                }
-	            };
-	            xhr.open("GET", "http://cors.io/?u=https://blog.revillweb.com/feed");
-	            xhr.send();
+	                };
+	                xhr.open("GET", "http://cors.io/?u=https://blog.revillweb.com/feed");
+	                xhr.send();
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -190,14 +235,14 @@
 	                var $a = document.createElement("a");
 	                $a.setAttribute("href", item.link);
 	                $a.setAttribute("target", "_blank");
-	                var dateString = new Intl.DateTimeFormat("en-GB").format(new Date(item.date));
+	                var dateString = new Date(item.date).toLocaleDateString();
 	                $a.innerHTML = "<div class=\"date\"><span>" + dateString + "</span></div><h3>" + item.title + "</h3>";
 	                $li.appendChild($a);
 	                $template.appendChild($li);
 	            });
-	            this.shadowRoot.querySelector(".ccontent").appendChild($template);
+	            this.querySelector(".ccontent").appendChild($template);
 	            setTimeout(function () {
-	                _this3.shadowRoot.querySelector(".ccontainer").classList.add("loaded");
+	                _this3.querySelector(".ccontainer").classList.add("loaded");
 	            }, 1000);
 	        }
 	    }]);
@@ -229,6 +274,8 @@
 	 * GitHub: https://github.com/RevillWeb
 	 * Twitter: @RevillWeb
 	 */
+	var LS_TS_KEY = "rw_gh_ts";
+	var LS_DATA_KEY = "rw_gh_data";
 
 	var GithubRepos = exports.GithubRepos = function (_HTMLElement) {
 	    _inherits(GithubRepos, _HTMLElement);
@@ -240,29 +287,43 @@
 	    }
 
 	    _createClass(GithubRepos, [{
-	        key: "createdCallback",
-	        value: function createdCallback() {
-	            this.createShadowRoot();
-	            this.shadowRoot.innerHTML = "\n            <style>\n                ul {\n                    margin: 0;\n                    padding: 0;\n                    list-style: none;\n                }\n                ul li {\n                    border-bottom: solid 1px #999;\n                    border-top: solid 1px #FFF;\n                    box-sizing: content-box;\n                    transition: border-color 0.7s ease;\n                }\n                ul li a {\n                    text-decoration: none;\n                    display: block;\n                    height: 200px;\n                    padding: 30px 30px 0 30px;\n                    background-color: #F1F1F1;\n                    color: #0d152d;\n                    transition: background-color 0.7s ease, color 0.7s ease;\n                    position: relative;\n                }\n                ul li a h3 {\n                    margin: 0;\n                    padding: 0;\n                    font-size: 22px;\n                    font-weight: 300;\n                }\n                ul li a .info {\n                    font-size: 12px;\n                    margin-bottom: 20px;\n                }\n                ul li:hover {\n                    border-top: solid 1px #000;\n                }\n                ul li:hover a {\n                    background-color: #111111;\n                    color: #FFF;\n                }\n                .spinner {\n                    position: absolute;\n                    top: 0;\n                    right: 0;\n                    bottom: 0;\n                    left: 0;\n                    z-index: 200;\n                }\n                .spinner .inner {\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    -webkit-transform: translate(-50%, -50%);\n                    transform: translate(-50%, -50%);\n                }\n                .ccontent {\n                    position: absolute;\n                    top: 100%;\n                    right: 0;\n                    bottom: 0;\n                    left: 0;\n                }\n                .ccontainer.loaded .ccontent {\n                    transition: top 0.7s ease;\n                    top: 0;\n                    z-index: 2;\n                }\n                .container.loaded .spinner {\n                    transition: top 0.6s ease;\n                    opacity: 0;\n                    z-index: 1;\n                }\n                .dot {\n                    width: 10px;\n                    height: 10px;\n                    border: 2px solid white;\n                    border-radius: 50%;\n                    float: left;\n                    margin: 0 5px;\n                    -webkit-transform: scale(0);\n                    transform: scale(0);\n                    -webkit-animation: fx 1000ms ease infinite 0ms;\n                    animation: fx 1000ms ease infinite 0ms;\n                }\n                .dot:nth-child(2) {\n                    -webkit-animation: fx 1000ms ease infinite 300ms;\n                    animation: fx 1000ms ease infinite 300ms;\n                }\n                .dot:nth-child(3) {\n                    -webkit-animation: fx 1000ms ease infinite 600ms;\n                    animation: fx 1000ms ease infinite 600ms;\n                }\n                @-webkit-keyframes fx {\n                    50% {\n                        -webkit-transform: scale(1);\n                        transform: scale(1);\n                        opacity: 1;\n                    }\n                    100% {\n                        opacity: 0;\n                    }\n                }\n                @keyframes fx {\n                    50% {\n                        -webkit-transform: scale(1);\n                        transform: scale(1);\n                        opacity: 1;\n                    }\n                    100% {\n                        opacity: 0;\n                    }\n                }\n                ul li .description {\n                    font-size: 12px;\n                    font-weight: 300;\n                    line-height: 20px;\n                }\n                ul li h3 {\n                    white-space: nowrap;\n                    overflow: hidden;\n                    text-overflow: ellipsis;\n                }\n                ul li a .date {\n                    font-size: 12px;\n                    margin-bottom: 20px;\n                    color: #999;\n                    font-weight: 300;\n                }\n            </style>\n            <div class=\"ccontainer\">\n                <div class=\"spinner\">\n                    <div class=\"inner\">\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                    </div>\n                </div>\n                <div class=\"ccontent\"></div>\n            </div>\n        ";
-	        }
-	    }, {
 	        key: "attachedCallback",
 	        value: function attachedCallback() {
 	            var _this2 = this;
 
-	            var xhr = new XMLHttpRequest();
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState == 4 && xhr.status == 200) {
-	                    try {
-	                        _this2.items = JSON.parse(xhr.response);
-	                        _this2.render();
-	                    } catch (e) {
-	                        console.error("Couldn't parse API response:", e);
+	            this.innerHTML = "\n            <div class=\"ccontainer github\">\n                <div class=\"spinner\">\n                    <div class=\"inner\">\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                    </div>\n                </div>\n                <div class=\"ccontent\"></div>\n            </div>\n        ";
+
+	            //Grab any items from local storage
+	            var items = localStorage.getItem(LS_DATA_KEY);
+	            //Try and parse a timestamp from local storage
+	            var ts = null;
+	            try {
+	                ts = new Date(localStorage.getItem(LS_TS_KEY));
+	            } catch (e) {}
+	            //Couldn't parse ts
+
+	            //If we have some cached data and its less than an hour old, use it
+	            if (ts !== null && new Date().getTime() - ts.getTime() <= 60000 && items !== null) {
+	                this.items = JSON.parse(items);
+	                this.render();
+	            } else {
+	                //Otherwise go and grab some new data
+	                var xhr = new XMLHttpRequest();
+	                xhr.onreadystatechange = function () {
+	                    if (xhr.readyState == 4 && xhr.status == 200) {
+	                        try {
+	                            _this2.items = JSON.parse(xhr.response);
+	                            localStorage.setItem(LS_DATA_KEY, xhr.response);
+	                            localStorage.setItem(LS_TS_KEY, new Date());
+	                            _this2.render();
+	                        } catch (e) {
+	                            console.error("Couldn't parse API response:", e);
+	                        }
 	                    }
-	                }
-	            };
-	            xhr.open("GET", "https://api.github.com/users/RevillWeb/repos?sort=updated&type=owner");
-	            xhr.send();
+	                };
+	                xhr.open("GET", "https://api.github.com/users/RevillWeb/repos?sort=updated&type=owner&per_page=10");
+	                xhr.send();
+	            }
 	        }
 	    }, {
 	        key: "render",
@@ -275,14 +336,14 @@
 	                var $a = document.createElement("a");
 	                $a.setAttribute("href", item.html_url);
 	                $a.setAttribute("target", "_blank");
-	                var dateString = new Intl.DateTimeFormat().format(new Date(item.updated_at));
-	                $a.innerHTML = "<div class=\"info\"><span class=\"date\">" + dateString + "</span></div><h3>" + item.name + "</h3><p class=\"description\">" + item.description + "</p>";
+	                var dateString = new Date(item.updated_at).toLocaleDateString();
+	                $a.innerHTML = "<div class=\"date\">" + dateString + "</div><h3>" + item.name + "</h3><p class=\"item-description\">" + item.description + "</p>";
 	                $li.appendChild($a);
 	                $template.appendChild($li);
 	            });
-	            this.shadowRoot.querySelector(".ccontent").appendChild($template);
+	            this.querySelector(".ccontent").appendChild($template);
 	            setTimeout(function () {
-	                _this3.shadowRoot.querySelector(".ccontainer").classList.add("loaded");
+	                _this3.querySelector(".ccontainer").classList.add("loaded");
 	            }, 1000);
 	        }
 	    }]);
@@ -325,18 +386,21 @@
 	    }
 
 	    _createClass(TwitterWidget, [{
-	        key: "createdCallback",
-	        value: function createdCallback() {
-	            this.createShadowRoot();
-	            this.shadowRoot.innerHTML = "\n            <style>\n                .spinner {\n                    position: absolute;\n                    top: 0;\n                    right: 0;\n                    bottom: 0;\n                    left: 0;\n                    z-index: 200;\n                }\n                .spinner .inner {\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    -webkit-transform: translate(-50%, -50%);\n                    transform: translate(-50%, -50%);\n                }\n                .ccontent {\n                    position: absolute;\n                    top: 100%;\n                    right: 0;\n                    bottom: 0;\n                    left: 0;\n                }\n                .ccontainer.loaded .ccontent {\n                    transition: top 0.7s ease;\n                    top: 0;\n                    z-index: 2;\n                    background-color: #FFF;\n                }\n                .ccontainer.loaded .spinner {\n                    transition: top 0.6s ease;\n                    opacity: 0;\n                    z-index: 1;\n                }\n                .dot {\n                    width: 10px;\n                    height: 10px;\n                    border: 2px solid white;\n                    border-radius: 50%;\n                    float: left;\n                    margin: 0 5px;\n                    -webkit-transform: scale(0);\n                    transform: scale(0);\n                    -webkit-animation: fx 1000ms ease infinite 0ms;\n                    animation: fx 1000ms ease infinite 0ms;\n                }\n                .dot:nth-child(2) {\n                    -webkit-animation: fx 1000ms ease infinite 300ms;\n                    animation: fx 1000ms ease infinite 300ms;\n                }\n                .dot:nth-child(3) {\n                    -webkit-animation: fx 1000ms ease infinite 600ms;\n                    animation: fx 1000ms ease infinite 600ms;\n                }\n                @-webkit-keyframes fx {\n                    50% {\n                        -webkit-transform: scale(1);\n                        transform: scale(1);\n                        opacity: 1;\n                    }\n                    100% {\n                        opacity: 0;\n                    }\n                }\n                @keyframes fx {\n                    50% {\n                        -webkit-transform: scale(1);\n                        transform: scale(1);\n                        opacity: 1;\n                    }\n                    100% {\n                        opacity: 0;\n                    }\n                }\n            </style>\n            <div class=\"ccontainer\">\n                <div class=\"spinner\">\n                    <div class=\"inner\">\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                    </div>\n                </div>\n                <div class=\"ccontent\"><content></content></div>\n            </div>\n        ";
-	        }
-	    }, {
 	        key: "attachedCallback",
 	        value: function attachedCallback() {
 	            var _this2 = this;
 
+	            this.innerHTML = "\n            <div class=\"ccontainer\">\n                <div class=\"spinner\">\n                    <div class=\"inner\">\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                        <div class=\"dot\"></div>\n                    </div>\n                </div>\n                <div class=\"ccontent\"></div>\n            </div>\n        ";
+	            var $script = document.createElement("script");
+	            $script.setAttribute("src", "//platform.twitter.com/widgets.js");
+	            var $a = document.createElement("a");
+	            $a.classList.add("twitter-timeline");
+	            $a.setAttribute("href", "https://twitter.com/revillweb");
+	            var $content = this.querySelector(".ccontent");
+	            $content.appendChild($script);
+	            $content.appendChild($a);
 	            setTimeout(function () {
-	                _this2.shadowRoot.querySelector(".ccontainer").classList.add("loaded");
+	                _this2.querySelector(".ccontainer").classList.add("loaded");
 	            }, 1000);
 	        }
 	    }]);

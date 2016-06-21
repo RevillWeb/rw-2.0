@@ -1,14 +1,15 @@
-<!-- Copyright © CommonTime Ltd. 2016. -->
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 10]> <html class="legacy"> <![endif]-->
+<!--[if gt IE 10]><!--> <html> <!--<![endif]-->
 <head>
     <meta charset="UTF-8">
     <title>RW 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/webcomponents.min.js"></script>
-    <script src="assets/js/closest.js"></script>
+    <link rel="stylesheet" href="assets/css/component-styles.css">
+    <script src="assets/js/init.js"></script>
+    <script src="assets/js/CustomElements.min.js"></script>
 </head>
 <body>
     <div class="frame">
@@ -21,16 +22,21 @@
                     </div>
                     <h1>Leon Revill</h1>
                     <hr>
-                    <p class="description">Working hard to make awesome things for the web platform.</p>
+                    <p class="description">Working hard to make awesome things for the web platform, mostly with <strong>web components</strong>.</p>
                 </div>
             </div>
-            <div class="bottom"></div>
+            <div class="bottom">
+                <div class="social">
+                    <!--<a href="cv" target="_blank"><span class="icon-magazine"></span></a>-->
+                    <a href="https://www.linkedin.com/in/leonrevill" target="_blank"><span class="icon-linkedin2"></span></a>
+                </div>
+            </div>
         </div>
         <div class="section content blog" data-url="https://blog.revillweb.com/">
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
-                        <span class="icon-feed2"></span>
+                        <span class="icon-rss2"></span>
                     </div>
                     <h1>Blog</h1>
                     <hr>
@@ -38,8 +44,10 @@
                 </div>
             </div>
             <div class="bottom">
+                <!--[if gt IE 10]><!-->
                 <div class="more"><button>More...</button></div>
                 <medium-posts></medium-posts>
+                <!--<![endif]-->
             </div>
             <div class="background"></div>
         </div>
@@ -55,8 +63,10 @@
                 </div>
             </div>
             <div class="bottom">
+                <!--[if gt IE 10]><!-->
                 <div class="more"><button>More...</button></div>
                 <github-repos></github-repos>
+                <!--<![endif]-->
             </div>
             <div class="background"></div>
         </div>
@@ -72,10 +82,10 @@
                 </div>
             </div>
             <div class="bottom">
+                <!--[if gt IE 10]><!-->
                 <div class="more"><button>More...</button></div>
-                <twitter-widget>
-                    <a class="twitter-timeline" href="https://twitter.com/revillweb"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </twitter-widget>
+                <twitter-widget></twitter-widget>
+                <!--<![endif]-->
             </div>
             <div class="background"></div>
         </div>
