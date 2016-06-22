@@ -99,7 +99,7 @@
 	            this.parentNode.classList.remove("contenthover");
 	        });
 	    });
-	    var $mores = document.querySelectorAll(".more button");
+	    var $mores = document.querySelectorAll(".content-btn.more");
 	    [].forEach.call($mores, function ($element) {
 	        $element.addEventListener("click", function (event) {
 	            event.preventDefault();
@@ -131,6 +131,15 @@
 	            }
 	        });
 	    });
+
+	    document.querySelector("#about-me").onmouseover = function (event) {
+	        event.preventDefault();
+	        document.querySelector(".overlay").classList.add("enabled");
+	    };
+	    document.querySelector("#close-btn").onclick = function (event) {
+	        event.preventDefault();
+	        document.querySelector(".overlay").classList.remove("enabled");
+	    };
 	}
 
 /***/ },

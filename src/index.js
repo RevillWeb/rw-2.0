@@ -50,7 +50,7 @@ if (document.documentElement.className.indexOf("legacy") === -1) {
             this.parentNode.classList.remove("contenthover");
         });
     });
-    const $mores = document.querySelectorAll(".more button");
+    const $mores = document.querySelectorAll(".content-btn.more");
     [].forEach.call($mores, ($element) => {
         $element.addEventListener("click", function (event) {
             event.preventDefault();
@@ -82,5 +82,14 @@ if (document.documentElement.className.indexOf("legacy") === -1) {
             }
         });
     });
+
+    document.querySelector("#about-me").onmouseover = function(event) {
+        event.preventDefault();
+        document.querySelector(".overlay").classList.add("enabled");
+    };
+    document.querySelector("#close-btn").onclick = function(event) {
+        event.preventDefault();
+        document.querySelector(".overlay").classList.remove("enabled");
+    };
 
 }

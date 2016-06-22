@@ -11,6 +11,10 @@ html, body {
     background: linear-gradient(45deg, #0f1848, #0d152d);
     font-family: 'Lato', sans-serif;
 }
+p a {
+    color: inherit;
+    font-weight: normal;
+}
 .frame {
     display: flex;
     flex-direction: row;
@@ -37,7 +41,6 @@ html, body {
     text-decoration: none;
     font-size: 32px;
     color: #FFD700;
-    text-shadow: 1px 1px 0 #887000;
     display: inline-block;
     transition: color 0.7s ease;
 }
@@ -64,7 +67,7 @@ html, body {
 .section .image-holder span {
     font-size: 32px;
     color: #FFD700;
-    text-shadow: 1px 1px 0 #887000;
+    transition: color 0.7s ease;
 }
 .section .image-holder .image {
     position: absolute;
@@ -88,6 +91,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
+    overflow: hidden;
 }
 .section .top {
     position: relative;
@@ -104,22 +108,20 @@ html, body {
     position: relative;
     flex-direction: column;
 }
-.section h1 {
+.section h1, .section h2 {
     margin: 0;
     font-weight: 300;
     font-size: 40px;
     text-align: center;
     color: #FFF;
     width: 100%;
+    transition: color 0.7s ease;
 }
-.section .top .inner h1 {
-    transition: width 0.7s ease, color 0.7s ease;
-}
-.section hr {
+.section.content hr {
     margin: 30px auto;
     width: 40%;
     border: 0 none;
-    border-top: 1px dotted rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
 .section p.description {
     font-weight: 300;
@@ -129,6 +131,7 @@ html, body {
     text-align: center;
     color: #E1E1E1;
     height: 80px;
+    transition: color 0.7s ease;
 }
 .section.content {
     cursor: pointer;
@@ -147,6 +150,68 @@ html, body {
     z-index: 99;
     transition: opacity 0.7s ease;
 }
+.section.info .overlay {
+    padding: 10px 20px 20px 20px;
+    top: 100%;
+    background-color: #333;
+    background-image: linear-gradient(45deg, #E1E1E1, #F1F1F1);
+    background: #333;
+    background: linear-gradient(45deg, #E1E1E1, #F1F1F1);
+    transition: top 0.7s ease;
+}
+.content-btn {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #CCC;
+    text-decoration: none;
+    position: absolute;
+    bottom: -100px;
+    width: 80px;
+    left: calc(50% - 45px);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    border: none;
+    cursor: pointer;
+}
+.section.info .overlay .contact-me {
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    width: 170px;
+    margin: auto;
+}
+.section.info .overlay .content-btn {
+    transition: bottom 0.7s ease, opacity 0.7s ease;
+}
+.section.info h3 {
+    font-weight: 300;
+}
+.section.info hr {
+    border: 0 none;
+    border-top: 1px solid rgba(13, 21, 45, 0.10);
+    margin: 30px 0 20px 0;
+}
+.section.info .overlay.enabled {
+    opacity: 1;
+    z-index: 100;
+    top: 0;
+}
+.section.info .overlay.enabled .content-btn {
+    bottom: 20px;
+    opacity: 1;
+}
+.section.info .overlay.enabled h2 {
+    color: #000;
+    margin-bottom: 20px;
+}
+.section.info .overlay.enabled p {
+    color: #000;
+    line-height: 25px;
+    font-weight: 300;
+}
 .section .bottom {
     overflow: hidden;
     position: relative;
@@ -156,34 +221,31 @@ html, body {
 .section.content .bottom {
     transition: height 0.7s ease, flex-grow 0.7s ease;
 }
-.section .more {
+.section.content .content-btn {
     position: absolute;
-    top: 350px;
+    top: 360px;
     opacity: 0;
     transition: top 0.7s ease;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 80px;
+    height: 40px;
     z-index: 100;
-}
-.section .more button {
-    display: block;
-    width: 80px;
-    border-radius: 10px;
-    line-height: 35px;
     font-size: 16px;
-    background-color: rgba(0, 0, 0, 0.75);
-    border: none;
-    color: #CCC;
-    cursor: pointer;
-    outline: none;
 }
-.section.contenthover .more {
+/*.section .more button {*/
+    /*display: block;*/
+    /*width: 80px;*/
+    /*border-radius: 10px;*/
+    /*line-height: 35px;*/
+    /*font-size: 16px;*/
+    /*background-color: rgba(0, 0, 0, 0.75);*/
+    /*border: none;*/
+    /*color: #CCC;*/
+    /*cursor: pointer;*/
+    /*outline: none;*/
+/*}*/
+.section.content.contenthover .content-btn {
     opacity: 1;
-    top: 230px;
+    top: 250px;
 }
 .info .bottom {
     overflow: hidden;
@@ -193,6 +255,15 @@ html, body {
 /** HOVER EVENTS **/
 .section.content:hover .bottom {
     height: 350px;
+}
+.section.content:hover h2 {
+    color: #0d152d;
+}
+.section.content:hover p.description {
+    color: #111b51;
+}
+.section.content:hover .image-holder span {
+    color: #111b51;
 }
 .section.content:hover .background {
     opacity: 1;
@@ -227,6 +298,7 @@ html, body {
 .section.content.slideup .image-holder {
     height: 0;
     opacity: 0;
+    margin: 0;
     transition: opacity 0.7s ease, height 0.7s ease;
 }
 .section.content.slideup ul li {
@@ -315,5 +387,8 @@ html, body {
     .section .top {
         align-items: center;
         margin: 0;
+    }
+    .section.info .overlay {
+        display: none;
     }
 }

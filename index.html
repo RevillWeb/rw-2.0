@@ -3,8 +3,9 @@
 <!--[if gt IE 10]><!--> <html> <!--<![endif]-->
 <head>
     <meta charset="UTF-8">
-    <title>RW 2.0</title>
+    <title>Leon Revill @ RevillWeb</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="assets/css/icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/component-styles.css">
@@ -14,6 +15,7 @@
 <body>
     <div class="frame">
         <div class="section info">
+            <div class="about-me-bg"></div>
             <div class="top">
                 <div class="inner">
                     <div class="image-holder">
@@ -27,9 +29,22 @@
             </div>
             <div class="bottom">
                 <div class="social">
-                    <!--<a href="cv" target="_blank"><span class="icon-magazine"></span></a>-->
-                    <a href="https://www.linkedin.com/in/leonrevill" target="_blank"><span class="icon-linkedin2"></span></a>
+                    <a href="#" id="about-me">
+                        <span class="icon-info2"></span>
+                    </a>
                 </div>
+
+            </div>
+            <div class="overlay background">
+                <h2>About me</h2>
+                <hr>
+                <p>I'm a super enthusiastic web architect specialising in front-end technologies including hybrid mobile development. </p>
+                <p>I focus my time on understanding how to adopt new technologies sooner for greater long term benefit.</p>
+                <p>I am an avid <a href="http://blog.revillweb.com/" target="_blank">blogger</a> where I love to share my discoveries, I'm also an <a href="https://www.packtpub.com/web-development/mastering-angularjs-ui-development-video" target="_blank">author</a> of various media and contribute to the <a href="http://github.com/RevillWeb" target="_blank">open source</a> community as much as I can.</p>
+                <hr>
+                <h3>Get in touch...</h3>
+                <p>If you want to get in contact then you can e-mail me via <a href="mailto:leon@revillweb.com">leon@revillweb.com</a> or feel free to tweet to me <a href="https://twitter.com/RevillWeb" target="_blank">@RevillWeb</a>.</p>
+                <button class="content-btn" id="close-btn"><span class="icon-cancel-circle2"></span> Close</button>
             </div>
         </div>
         <div class="section content blog" data-url="https://blog.revillweb.com/">
@@ -38,14 +53,14 @@
                     <div class="image-holder">
                         <span class="icon-rss2"></span>
                     </div>
-                    <h1>Blog</h1>
+                    <h2>Blog</h2>
                     <hr>
                     <p class="description">I like to share what I've learnt.</p>
                 </div>
             </div>
             <div class="bottom">
                 <!--[if gt IE 10]><!-->
-                <div class="more"><button>More...</button></div>
+                <button class="content-btn more"><span class="icon-arrow-down"></span></button>
                 <medium-posts></medium-posts>
                 <!--<![endif]-->
             </div>
@@ -57,14 +72,14 @@
                     <div class="image-holder">
                         <span class="icon-github"></span>
                     </div>
-                    <h1>Projects</h1>
+                    <h2>Projects</h2>
                     <hr>
                     <p class="description">The things that I've been working on.</p>
                 </div>
             </div>
             <div class="bottom">
                 <!--[if gt IE 10]><!-->
-                <div class="more"><button>More...</button></div>
+                <button class="content-btn more"><span class="icon-arrow-down"></span></button>
                 <github-repos></github-repos>
                 <!--<![endif]-->
             </div>
@@ -76,14 +91,14 @@
                     <div class="image-holder">
                         <span class="icon-twitter"></span>
                     </div>
-                    <h1>Twitter</h1>
+                    <h2>Twitter</h2>
                     <hr>
                     <p class="description">Sometimes I share my thoughts.</p>
                 </div>
             </div>
             <div class="bottom">
                 <!--[if gt IE 10]><!-->
-                <div class="more"><button>More...</button></div>
+                <button class="content-btn more"><span class="icon-arrow-down"></span></button>
                 <twitter-widget></twitter-widget>
                 <!--<![endif]-->
             </div>

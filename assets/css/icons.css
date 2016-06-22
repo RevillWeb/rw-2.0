@@ -33,6 +33,15 @@
 .icon-earth2:before {
     content: "\ec97";
 }
+.icon-info2:before {
+    content: "\ed64";
+}
+.icon-cancel-circle2:before {
+    content: "\ed66";
+}
+.icon-arrow-down:before {
+    content: "\edbf";
+}
 .icon-rss2:before {
     content: "\eefb";
 }
@@ -48,4 +57,3 @@
 .icon-twitter:before {
     content: "\e901";
 }
-
