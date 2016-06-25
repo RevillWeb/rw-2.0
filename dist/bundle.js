@@ -89,7 +89,6 @@
 	}
 
 	if (document.documentElement.className.indexOf("legacy") === -1) {
-
 	    var $bottoms = document.querySelectorAll(".bottom");
 	    [].forEach.call($bottoms, function ($element) {
 	        $element.addEventListener("mouseover", function () {
@@ -121,7 +120,7 @@
 	        $element.addEventListener("mouseout", function (event) {
 	            if (event.toElement !== null) {
 	                var $section = closest(event.toElement, ".section.content");
-	                if ($section !== null && $section != this) {
+	                if ($section != this) {
 	                    var $bottom = closest(event.target, ".bottom");
 	                    if ($bottom !== null) {
 	                        $bottom.scrollTop = 0;
@@ -131,15 +130,6 @@
 	            }
 	        });
 	    });
-
-	    document.querySelector("#about-me").onmouseover = function (event) {
-	        event.preventDefault();
-	        document.querySelector(".overlay").classList.add("enabled");
-	    };
-	    document.querySelector("#close-btn").onclick = function (event) {
-	        event.preventDefault();
-	        document.querySelector(".overlay").classList.remove("enabled");
-	    };
 	}
 
 /***/ },

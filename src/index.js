@@ -40,7 +40,6 @@ function closest(el, selector) {
 }
 
 if (document.documentElement.className.indexOf("legacy") === -1) {
-
     const $bottoms = document.querySelectorAll(".bottom");
     [].forEach.call($bottoms, ($element) => {
         $element.addEventListener("mouseover", function () {
@@ -72,7 +71,7 @@ if (document.documentElement.className.indexOf("legacy") === -1) {
         $element.addEventListener("mouseout", function (event) {
             if (event.toElement !== null) {
                 const $section = closest(event.toElement, ".section.content");
-                if ($section !== null && $section != this) {
+                if ($section != this) {
                     let $bottom = closest(event.target, ".bottom");
                     if ($bottom !== null) {
                         $bottom.scrollTop = 0;
@@ -82,14 +81,4 @@ if (document.documentElement.className.indexOf("legacy") === -1) {
             }
         });
     });
-
-    document.querySelector("#about-me").onmouseover = function(event) {
-        event.preventDefault();
-        document.querySelector(".overlay").classList.add("enabled");
-    };
-    document.querySelector("#close-btn").onclick = function(event) {
-        event.preventDefault();
-        document.querySelector(".overlay").classList.remove("enabled");
-    };
-
 }
