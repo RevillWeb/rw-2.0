@@ -46,13 +46,17 @@ export class MediumPosts extends HTMLElement {
                         this.items = [];
                         [].forEach.call($items, ($item) => {
                             var $desc = parser.parseFromString($item.querySelector("description").textContent, "text/html");
-                            this.items.push({
+                            let _item = {
                                 "title": $item.querySelector("title").textContent,
                                 "description": $item.querySelector("description").textContent,
-                                "image": $desc.querySelector("p.medium-feed-image img").src,
                                 "link": $item.querySelector("link").textContent,
                                 "date": $item.querySelector("pubDate").textContent
-                            });
+                            };
+                            var _img = $desc.querySelector("p.medium-feed-image img");
+                            if (_img !== null) {
+                                _item.image = _img.src;
+                            }
+                            this.items.push(_item);
                         });
                         localStorage.setItem(LS_DATA_KEY, JSON.stringify(this.items));
                         localStorage.setItem(LS_TS_KEY, new Date());

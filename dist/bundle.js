@@ -201,13 +201,17 @@
 	                                _this2.items = [];
 	                                [].forEach.call($items, function ($item) {
 	                                    var $desc = parser.parseFromString($item.querySelector("description").textContent, "text/html");
-	                                    _this2.items.push({
+	                                    var _item = {
 	                                        "title": $item.querySelector("title").textContent,
 	                                        "description": $item.querySelector("description").textContent,
-	                                        "image": $desc.querySelector("p.medium-feed-image img").src,
 	                                        "link": $item.querySelector("link").textContent,
 	                                        "date": $item.querySelector("pubDate").textContent
-	                                    });
+	                                    };
+	                                    var _img = $desc.querySelector("p.medium-feed-image img");
+	                                    if (_img !== null) {
+	                                        _item.image = _img.src;
+	                                    }
+	                                    _this2.items.push(_item);
 	                                });
 	                                localStorage.setItem(LS_DATA_KEY, JSON.stringify(_this2.items));
 	                                localStorage.setItem(LS_TS_KEY, new Date());
