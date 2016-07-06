@@ -10,3 +10,4 @@ Redirect 301 /tutorials/angularjs-in-30-minutes-angularjs-tutorial/ https://blog
 Redirect 301 /tutorials/bootstrap-tutorial/ https://blog.revillweb.com/bootstrap-tutorial-a-responsive-design-tutorial-with-twitter-bootstrap-3-cb6445c1e586#.hgznxiv0k
 Redirect 301 /tutorials/jquery-foreach-using-jquery-each/ https://blog.revillweb.com/jquery-foreach-using-jquery-each-99904fea31bf#.pbsy9cehk
 Redirect 301 /tutorials/jquery-disable-button/ https://blog.revillweb.com/jquery-disable-button-disabling-and-enabling-buttons-with-jquery-5e3ffe669ece#.k7fgn58xb
+ErrorDocument 404 /
