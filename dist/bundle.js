@@ -132,6 +132,8 @@
 	    });
 	}
 
+	console.log("%c[ Follow me @RevillWeb (https://twitter.com/revillweb) ]", "color: #0d152d;");
+
 /***/ },
 /* 1 */
 /***/ function(module, exports) {

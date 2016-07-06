@@ -82,3 +82,5 @@ if (document.documentElement.className.indexOf("legacy") === -1) {
         });
     });
 }
+
+console.log("%c[ Follow me @RevillWeb (https://twitter.com/revillweb) ]", "color: #0d152d;");
